@@ -1,0 +1,2342 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{solutions}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{a-model-for-genre-classification}{%
+\section{A Model for Genre
+Classification}\label{a-model-for-genre-classification}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k+kn}{import} \PY{n}{datetime}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{re}
+        \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k+kn}{as} \PY{n+nn}{sp}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{c+c1}{\PYZsh{}\PYZpc{}matplotlib inline}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+\end{Verbatim}
+
+    Loading raw data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{tracks} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tracks.csv}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{sessions} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sessions.csv}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{tracks\PYZus{}to\PYZus{}complete} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tracks\PYZus{}to\PYZus{}complete.csv}\PY{l+s+s2}{\PYZdq{}}
+        
+        \PY{n}{df\PYZus{}tracks} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{tracks}\PY{p}{)}
+        \PY{n}{df\PYZus{}sessions} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{sessions}\PY{p}{)}
+        \PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{tracks\PYZus{}to\PYZus{}complete}\PY{p}{)}
+\end{Verbatim}
+
+    Before dealing with any model it is worth exploring the dataframes in
+order to understand the statistics and to perform some data quality
+checks.
+
+    \hypertarget{lyrics-data-exploration}{%
+\paragraph{Lyrics data exploration}\label{lyrics-data-exploration}}
+
+    Let's check some properties of the genre distribution
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{print} \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{shape}
+        \PY{n}{df\PYZus{}tracks} \PY{o}{=} \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{keep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(4985, 3)
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}           song\_id  duration   genre
+        0  13460427505664     142.0    rock
+        1   4707284156416     259.0  reggae
+        2   2525440770048      36.0    rock
+        3  16973710753795     216.0   blues
+        4   3642132267010      19.0    rock
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{genres} \PY{o}{=} \PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{describeTracks} \PY{o}{=} \PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+        \PY{n}{describeTracks} 
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}         duration                                                        
+                   count        mean        std  min    25\%   50\%     75\%    max
+        genre                                                                   
+        blues      769.0   91.093628  70.877032  0.0  36.00  74.0  129.00  364.0
+        electro    376.0  100.917553  75.351133  0.0  35.75  89.0  155.25  368.0
+        rap        567.0   96.303351  73.878085  0.0  37.00  80.0  141.00  489.0
+        reggae     757.0   93.976222  67.101711  0.0  39.00  82.0  138.00  379.0
+        rock      2273.0   93.030356  70.234200  0.0  37.00  78.0  135.00  489.0
+\end{Verbatim}
+        
+    It is pretty unuasual to have lyrics with duration of 0 seconds (or
+1,2s, \ldots{})!
+
+The tracks cataoogue reports several NAs values in the ``duration''
+feature. In order to deal with missing data, the average lyrics duration
+per genre is computed and used in replacement:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{blues\PYZus{}avg} \PY{o}{=} \PY{n}{describeTracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blues}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{electro\PYZus{}avg} \PY{o}{=} \PY{n}{describeTracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{electro}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{rap\PYZus{}avg} \PY{o}{=} \PY{n}{describeTracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{raggae\PYZus{}avg} \PY{o}{=} \PY{n}{describeTracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{reggae}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{rock\PYZus{}avg} \PY{o}{=} \PY{n}{describeTracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rock}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} fillna }
+        \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blues}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{blues\PYZus{}avg}
+        \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{electro}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{electro\PYZus{}avg}
+        \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{rap\PYZus{}avg}
+        \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{reggae}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{raggae\PYZus{}avg}
+        \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rock}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{rock\PYZus{}avg}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} check }
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Na values left:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Na values left:
+song\_id     0
+duration    0
+genre       0
+dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df\PYZus{}tracks}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} count     4985
+        unique       5
+        top       rock
+        freq      2406
+        Name: genre, dtype: object
+\end{Verbatim}
+        
+    \hypertarget{session-data-exploration}{%
+\paragraph{Session data exploration}\label{session-data-exploration}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}    user\_id         song\_id     timestamp
+        0     21.0   7954279432194  1.486218e+09
+        1     12.0  10307921510401  1.477860e+09
+        2      3.0   2843268349952  1.450139e+09
+        3     90.0  12300786335744  1.479925e+09
+        4     86.0   1752346656768  1.506672e+09
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{print} \PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{shape}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The ratio of NA is}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{str}\PY{p}{(}\PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(58037, 3)
+The ratio of NA is
+user\_id      0.091321
+song\_id      0.000000
+timestamp    0.963179
+dtype: float64
+
+    \end{Verbatim}
+
+    Since there is less than 1\% of NAs in each column, missing observations
+will be simply filtered out.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df\PYZus{}sessions} \PY{o}{=} \PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}.shape() \PYZsh{}= df\PYZus{}sessions[]}
+         \PY{n}{n\PYZus{}items} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{n\PYZus{}users} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{user\PYZus{}id}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{shape}
+         \PY{k}{print} \PY{n}{n\PYZus{}items}
+         \PY{k}{print} \PY{n}{n\PYZus{}users}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(57426, 3)
+5967
+101
+
+    \end{Verbatim}
+
+    There are 2 duplicates rows
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df\PYZus{}sessions} \PY{o}{=} \PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{keep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{print} \PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(57424, 3)
+
+    \end{Verbatim}
+
+    Some techniques for recommendation usually take into account a field
+summarising the preferences given by the users. First of all, we want to
+count how many times a certain user listened to the same song:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df\PYZus{}UsrRating} \PY{o}{=} \PY{p}{(}\PY{n}{df\PYZus{}sessions}\PY{o}{.}
+                        \PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usr\PYZus{}rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{p}{)}
+         \PY{k}{print} \PY{n}{df\PYZus{}UsrRating}\PY{o}{.}\PY{n}{shape}
+         \PY{k}{print} \PY{n}{df\PYZus{}UsrRating}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{usr\PYZus{}rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df\PYZus{}UsrRating}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(52532, 3)
+count    52532.000000
+mean         1.093124
+std          0.321699
+min          1.000000
+25\%          1.000000
+50\%          1.000000
+75\%          1.000000
+max          5.000000
+Name: usr\_rating, dtype: float64
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    song\_id  user\_id  usr\_rating
+         0        0      2.0           1
+         1        0      6.0           1
+         2        0     18.0           1
+         3        0     29.0           1
+         4        0     37.0           1
+\end{Verbatim}
+        
+    It is worth noting that this feature is highly unevenly distributed to a
+value of 1, with tails up to 5.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df\PYZus{}UsrRating}\PY{o}{.}\PY{n}{usr\PYZus{}rating}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} (array([  4.80900000e+04,   0.00000000e+00,   4.03800000e+03,
+                   0.00000000e+00,   0.00000000e+00,   3.62000000e+02,
+                   0.00000000e+00,   3.80000000e+01,   0.00000000e+00,
+                   4.00000000e+00]),
+          array([ 1. ,  1.4,  1.8,  2.2,  2.6,  3. ,  3.4,  3.8,  4.2,  4.6,  5. ]),
+          <a list of 10 Patch objects>)
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}We could clip the play counts to be binary, e.g., any number greater than 2 is mapped to 1, otherwise it\PYZsq{}s 0.}
+         \PY{c+c1}{\PYZsh{}df\PYZus{}UsrRating.loc[df\PYZus{}UsrRating.usr\PYZus{}rating == 1,\PYZdq{}usr\PYZus{}rating\PYZdq{}] = 0}
+         \PY{c+c1}{\PYZsh{}df\PYZus{}UsrRating.loc[df\PYZus{}UsrRating.usr\PYZus{}rating \PYZgt{} 1,\PYZdq{}usr\PYZus{}rating\PYZdq{}] = 1}
+\end{Verbatim}
+
+    Another feature to add to the model is the lyrics ``popularity'',
+derived looking at how many times a track was globally played. This
+quantity will be scaled by its maximum measure, in order to get a rating
+classification between 0 and 1
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df\PYZus{}GlobRating} \PY{o}{=} \PY{p}{(}\PY{n}{df\PYZus{}sessions}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+                          \PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                          \PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+                          \PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+                          \PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popolarity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}GlobRating}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{popolarity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}GlobRating}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{popolarity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{n}{df\PYZus{}GlobRating}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{popolarity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}head(10)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{df\PYZus{}rating} \PY{o}{=} \PY{n}{df\PYZus{}GlobRating}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}UsrRating}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{df\PYZus{}rating}\PY{o}{.}\PY{n}{usr\PYZus{}rating}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 0.32169565145983653
+\end{Verbatim}
+        
+    \hypertarget{data-manipulation-merge-filtering}{%
+\paragraph{Data manipulation: merge \&
+filtering}\label{data-manipulation-merge-filtering}}
+
+    \begin{itemize}
+\item
+  We want to aggregte all the data into a single dataframe.
+\item
+  NaNs will be generated where user sessions cannot be mapped to the
+  track catalogues.
+\item
+  The \(\textit{song_id}\) corresponding to these NAs will be filtered
+  out in a differnt dataframe, namely \(\textit{df_preds}\), that will
+  be used at the vey end for predictions.
+\item
+  Data in \(\textit{tracks_to_complete.csv}\) should be at least a
+  subset of \(\textit{df_preds}\)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df\PYZus{}sessions} \PY{o}{=} \PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}rating}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{dfOverall} \PY{o}{=} \PY{n}{df\PYZus{}sessions}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}tracks}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{print}\PY{p}{(}\PY{n}{dfOverall}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{dfOverall}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(57424, 7)
+
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}        user\_id       song\_id     timestamp  popolarity  usr\_rating  duration  \textbackslash{}
+         37858      0.0   17179869185  1.464394e+09    0.151163           1      97.0   
+         7512       0.0   85899345921  1.454597e+09    0.232558           1      53.0   
+         49199      0.0  111669149698  1.454596e+09    0.860465           1      54.0   
+         7174       0.0  489626271744  1.465710e+09    0.069767           1      39.0   
+         37398      0.0  523986010112  1.447600e+09    0.197674           1     107.0   
+         29237      0.0  532575944704  1.479566e+09    0.174419           2      33.0   
+         23456      0.0  532575944704  1.488145e+09    0.174419           2      33.0   
+         43757      0.0  541165879298  1.465710e+09    0.116279           1       NaN   
+         26460      0.0  627065225218  1.490830e+09    0.023256           1     262.0   
+         36118      0.0  635655159810  1.557653e+09    0.034884           1      64.0   
+         
+                genre  
+         37858  blues  
+         7512   blues  
+         49199  blues  
+         7174    rock  
+         37398  blues  
+         29237    rap  
+         23456    rap  
+         43757    NaN  
+         26460   rock  
+         36118   rock  
+\end{Verbatim}
+        
+    Each user listenend to a total number of tracks equal to:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{totNtracks} \PY{o}{=} \PY{n}{dfOverall}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{song\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usr\PYZus{}totTrack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{totNtracks}\PY{o}{.}\PY{n}{usr\PYZus{}totTrack}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} [<matplotlib.lines.Line2D at 0x10c1abfd0>]
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{minumum number of listened tracks }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{totNtracks}\PY{o}{.}\PY{n}{usr\PYZus{}totTrack}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+minumum number of listened tracks 328
+
+    \end{Verbatim}
+
+    On average, each user listens to music tracks for the following average
+duration (in seconds)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{avgTime} \PY{o}{=} \PY{n}{dfOverall}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usr\PYZus{}avgSession}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}avgTime.head(5)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{avgTime}\PY{o}{.}\PY{n}{usr\PYZus{}avgSession}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} [<matplotlib.lines.Line2D at 0x10c5f7810>]
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    merging ..
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{globFeatures} \PY{o}{=} \PY{n}{avgTime}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{totNtracks}\PY{p}{,}\PY{n}{how} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{inner}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{dfOverall} \PY{o}{=} \PY{n}{dfOverall}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{globFeatures}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{dfOverall}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(57424, 9)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{df\PYZus{}preds} \PY{o}{=} \PY{n}{dfOverall}\PY{p}{[}\PY{n}{dfOverall}\PY{o}{.}\PY{n}{genre}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{df} \PY{o}{=} \PY{n}{dfOverall}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{dfOverall}\PY{o}{.}\PY{n}{genre}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{print}\PY{p}{(} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Data is split in a DF for modelling with }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ observations and in a DF for final predictions with }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{df\PYZus{}preds}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Data is split in a DF for modelling with 46084 observations and in a DF for final predictions with 11340 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}preds.sort\PYZus{}values([\PYZdq{}song\PYZus{}id\PYZdq{},\PYZdq{}usr\PYZus{}rating\PYZdq{}])}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}        user\_id       song\_id     timestamp  popolarity  usr\_rating  duration  \textbackslash{}
+         37858      0.0   17179869185  1.464394e+09    0.151163           1      97.0   
+         7512       0.0   85899345921  1.454597e+09    0.232558           1      53.0   
+         49199      0.0  111669149698  1.454596e+09    0.860465           1      54.0   
+         7174       0.0  489626271744  1.465710e+09    0.069767           1      39.0   
+         37398      0.0  523986010112  1.447600e+09    0.197674           1     107.0   
+         
+                genre  usr\_avgSession  usr\_totTrack  
+         37858  blues        88.01732           328  
+         7512   blues        88.01732           328  
+         49199  blues        88.01732           328  
+         7174    rock        88.01732           328  
+         37398  blues        88.01732           328  
+\end{Verbatim}
+        
+    Let's compare the song\_id that will be used for predictions with
+respect to the merged data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{how many sample? }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{o}{.}\PY{n}{size}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Exact intersection? }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}preds}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{how many common sample? }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}preds}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{was a fully matching subset? }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{o}{.}\PY{n}{issubset}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}preds}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+how many sample? 1265 
+Exact intersection? False
+how many common sample? 1209
+was a fully matching subset? False
+
+    \end{Verbatim}
+
+    Therefore, there are some elements in \(\textit{df_tracks_to_complete}\)
+that are not present in \(\textit{df_preds}\).
+
+These elements should be filtered out from
+\(\textit{df_tracks_to_complete}\) since it is not possible to model
+anything due to the lack of any inforamtion.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} elememnts in df\PYZus{}tracks\PYZus{}to\PYZus{}complete that are not in df\PYZus{}preds ? }
+         \PY{n}{discrepancy} \PY{o}{=} \PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}preds}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{In tracks\PYZus{}to\PYZus{}complete.csv there are }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ observations without any session/catalogue information}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{discrepancy}\PY{p}{)}
+         \PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete\PYZus{}filtered} \PY{o}{=} \PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{discrepancy}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+In tracks\_to\_complete.csv there are 56 observations without any session/catalogue information
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} 4758
+\end{Verbatim}
+        
+    Up to now, the \textbf{cleaned} dataset that will be used for modelling
+is composed by \textbf{101 users}, \textbf{5 genres}, \textbf{4758
+lyrics} and \textbf{46084 observations} (sessions)
+
+    \hypertarget{modelling}{%
+\subsection{Modelling}\label{modelling}}
+
+    Different techniques should be applied. Standard classifier (e.g.,
+neighbours search and gradient boosting) will be explored. A different
+solution could arise from the user pattern analysis of lyrics temporal
+sequences.
+
+Aiming to achieve quick resultss, I will divide the data only in
+training (70\%) and test (30\%) sets, without performing cross
+validation for hyper-parameters tuning, as a first approximation to find
+out the best model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.neighbors} \PY{k+kn}{import} \PY{n}{KNeighborsClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{KFold}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k+kn}{import} \PY{n}{print\PYZus{}function}
+         
+         \PY{k+kn}{import} \PY{n+nn}{logging}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{time} \PY{k+kn}{import} \PY{n}{time}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.feature\PYZus{}selection} \PY{k+kn}{import} \PY{n}{SelectFromModel}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.feature\PYZus{}selection} \PY{k+kn}{import} \PY{n}{SelectKBest}\PY{p}{,} \PY{n}{chi2}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.linear\PYZus{}model} \PY{k+kn}{import} \PY{n}{RidgeClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.pipeline} \PY{k+kn}{import} \PY{n}{Pipeline}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.svm} \PY{k+kn}{import} \PY{n}{LinearSVC}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.ensemble} \PY{k+kn}{import} \PY{n}{AdaBoostClassifier}\PY{p}{,} \PY{n}{GradientBoostingClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.linear\PYZus{}model} \PY{k+kn}{import} \PY{n}{SGDClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.linear\PYZus{}model} \PY{k+kn}{import} \PY{n}{Perceptron}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.linear\PYZus{}model} \PY{k+kn}{import} \PY{n}{PassiveAggressiveClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.naive\PYZus{}bayes} \PY{k+kn}{import} \PY{n}{BernoulliNB}\PY{p}{,} \PY{n}{MultinomialNB}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.neighbors} \PY{k+kn}{import} \PY{n}{KNeighborsClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.ensemble} \PY{k+kn}{import} \PY{n}{RandomForestClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.utils.extmath} \PY{k+kn}{import} \PY{n}{density}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{metrics}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{n}{classification\PYZus{}report}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k}{def} \PY{n+nf}{benchmark}\PY{p}{(}\PY{n}{clf}\PY{p}{)}\PY{p}{:}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{l+m+mi}{80}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{n}{clf}\PY{p}{)}
+             \PY{n}{t0} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{train\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{t0}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train time: }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{train\PYZus{}time}\PY{p}{)}
+         
+             \PY{n}{t0} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+             \PY{n}{test\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{t0}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test time:  }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{test\PYZus{}time}\PY{p}{)}
+             
+             \PY{n}{score} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pred}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy:   }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{score}\PY{p}{)}
+             
+         
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{classification report:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pred}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{confusion matrix:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pred}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n}{clf\PYZus{}descr} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{clf}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{return} \PY{n}{clf\PYZus{}descr}\PY{p}{,} \PY{n}{score}\PY{p}{,} \PY{n}{train\PYZus{}time}\PY{p}{,} \PY{n}{test\PYZus{}time}
+\end{Verbatim}
+
+    \#\#\#\#~Data pre-processing 1
+
+    Since we are interested in predicting only the genre, I will drop the
+``duration'' information that is missing when doing the predictions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{dfWhole} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{dfWhole}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}               user\_id         song\_id  popolarity  usr\_rating   genre  \textbackslash{}
+         timestamp                                                               
+         1.486218e+09     21.0   7954279432194    0.174419           1    rock   
+         1.477860e+09     12.0  10307921510401    0.186047           1  reggae   
+         1.479925e+09     90.0  12300786335744    0.081395           1  reggae   
+         1.406806e+09     56.0  14156212207616    0.441860           3   blues   
+         1.495963e+09     12.0   4853313044481    0.058140           1    rock   
+         
+                       usr\_avgSession  usr\_totTrack  
+         timestamp                                   
+         1.486218e+09       87.872463           574  
+         1.477860e+09       91.859174           617  
+         1.479925e+09       93.457371           686  
+         1.406806e+09      101.595625           583  
+         1.495963e+09       91.859174           617  
+\end{Verbatim}
+        
+    Finally, let's create a train and test dataset by using stratified
+sampling, to reproduce the relative unbalanced proportions of music
+genre in the session datasets. Indeeds, some genre frequencies were
+unbalance already at the level of the track dataset:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} genre
+         blues       807
+         electro     394
+         rap         593
+         reggae      785
+         rock       2406
+         Name: song\_id, dtype: int64
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{dfWhole}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{dfWhole}\PY{o}{.}\PY{n}{genre}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{dfWhole}\PY{o}{.}\PY{n}{genre}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{models}{%
+\paragraph{Models}\label{models}}
+
+    Several classification approaces are explored. Togheter with the
+accuracy metrics, a more suitable performance metrics is the f1\_score,
+since genres classes are not balanced.
+
+    I will concentrate more on a kNN classifier. To address the
+inefficiencies of KD Trees in higher dimensions, the ball tree data
+structure will be used as algorithms methods.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{results} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{clf}\PY{p}{,} \PY{n}{name} \PY{o+ow}{in} \PY{p}{(}
+                 \PY{p}{(}\PY{n}{RidgeClassifier}\PY{p}{(}\PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lsqr}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ridge Classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{Perceptron}\PY{p}{(}\PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Perceptron}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ball\PYZus{}tree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}20\PYZus{}ball}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{c+c1}{\PYZsh{}(KNeighborsClassifier(n\PYZus{}neighbors=10, algorithm = \PYZdq{}ball\PYZus{}tree\PYZdq{}), \PYZdq{}kNN\PYZus{}10\PYZus{}ball\PYZdq{}),}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ball\PYZus{}tree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}50\PYZus{}ball}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{c+c1}{\PYZsh{}(KNeighborsClassifier(n\PYZus{}neighbors=5, algorithm = \PYZdq{}ball\PYZus{}tree\PYZdq{}), \PYZdq{}kNN\PYZus{}5\PYZus{}ball\PYZdq{}),}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ball\PYZus{}tree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}100\PYZus{}ball}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{c+c1}{\PYZsh{}(KNeighborsClassifier(n\PYZus{}neighbors=20, metric=\PYZdq{}cosine\PYZdq{}, algorithm = \PYZdq{}brute\PYZdq{}), \PYZdq{}kNN\PYZus{}1\PYZdq{}),}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cosine}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brute}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}50}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{c+c1}{\PYZsh{}(KNeighborsClassifier(n\PYZus{}neighbors=200, metric=\PYZdq{}cosine\PYZdq{},algorithm = \PYZdq{}brute\PYZdq{}), \PYZdq{}kNN\PYZus{}200\PYZdq{}),}
+                 \PY{p}{(}\PY{n}{AdaBoostClassifier}\PY{p}{(} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{adaboost\PYZus{}50}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{AdaBoostClassifier}\PY{p}{(} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{adaboost\PYZus{}500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{2000}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gradientboost\PYZus{}2000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{3000}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gradientboost\PYZus{}3000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{c+c1}{\PYZsh{}(GradientBoostingClassifier(n\PYZus{}estimators=900), \PYZdq{}gradientboost\PYZus{}900\PYZdq{}),}
+                 \PY{c+c1}{\PYZsh{}(GradientBoostingClassifier(n\PYZus{}estimators=1200), \PYZdq{}gradientboost\PYZus{}1200\PYZdq{}),}
+                 \PY{c+c1}{\PYZsh{}(GradientBoostingClassifier(n\PYZus{}estimators=1000), \PYZdq{}gradientboost\PYZus{}1000\PYZdq{}),}
+                 \PY{c+c1}{\PYZsh{}(GradientBoostingClassifier(n\PYZus{}estimators=1500), \PYZdq{}gradientboost\PYZus{}1500\PYZdq{}),}
+                 \PY{p}{(}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random forest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{l+m+mi}{80}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+             \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{clf}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+================================================================================
+Ridge Classifier
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+RidgeClassifier(alpha=1.0, class\_weight=None, copy\_X=True, fit\_intercept=True,
+        max\_iter=None, normalize=False, random\_state=None, solver='lsqr',
+        tol=0.01)
+train time: 0.108s
+test time:  0.002s
+accuracy:   0.359
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.36      0.49      0.42      4797
+    electro       0.00      0.00      0.00       988
+        rap       0.00      0.00      0.00       922
+     reggae       0.00      0.00      0.00      2290
+       rock       0.36      0.54      0.43      4829
+
+avg / total       0.25      0.36      0.29     13826
+
+confusion matrix:
+[[2368    0    0    0 2429]
+ [ 428    0    0    0  560]
+ [ 486    0    0    0  436]
+ [1046    0    0    0 1244]
+ [2238    0    0    0 2591]]
+
+================================================================================
+Perceptron
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+Perceptron(alpha=0.0001, class\_weight=None, eta0=1.0, fit\_intercept=True,
+      n\_iter=50, n\_jobs=1, penalty=None, random\_state=0, shuffle=True,
+      verbose=0, warm\_start=False)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/aagostinelli/anaconda/lib/python2.7/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+  'precision', 'predicted', average, warn\_for)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train time: 0.519s
+test time:  0.001s
+accuracy:   0.350
+classification report:
+             precision    recall  f1-score   support
+
+      blues       1.00      0.00      0.00      4797
+    electro       0.00      0.00      0.00       988
+        rap       0.00      0.00      0.00       922
+     reggae       0.00      0.00      0.00      2290
+       rock       0.35      1.00      0.52      4829
+
+avg / total       0.47      0.35      0.18     13826
+
+confusion matrix:
+[[   7    0    0    0 4790]
+ [   0    0    0    0  988]
+ [   0    0    0    0  922]
+ [   0    0    0    0 2290]
+ [   0    0    0    0 4829]]
+
+================================================================================
+kNN\_20\_ball
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='ball\_tree', leaf\_size=30, metric='minkowski',
+           metric\_params=None, n\_jobs=1, n\_neighbors=20, p=2,
+           weights='uniform')
+train time: 0.043s
+test time:  0.059s
+accuracy:   0.668
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.68      0.88      0.77      4797
+    electro       0.55      0.44      0.49       988
+        rap       0.49      0.23      0.31       922
+     reggae       0.62      0.55      0.58      2290
+       rock       0.71      0.64      0.67      4829
+
+avg / total       0.66      0.67      0.65     13826
+
+confusion matrix:
+[[4205   69   34  137  352]
+ [ 204  435   29  122  198]
+ [ 246   41  209  102  324]
+ [ 518   55   31 1268  418]
+ [ 992  184  120  420 3113]]
+
+================================================================================
+kNN\_50\_ball
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='ball\_tree', leaf\_size=30, metric='minkowski',
+           metric\_params=None, n\_jobs=1, n\_neighbors=50, p=2,
+           weights='uniform')
+train time: 0.058s
+test time:  0.140s
+accuracy:   0.551
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.59      0.77      0.67      4797
+    electro       0.43      0.14      0.22       988
+        rap       0.41      0.06      0.11       922
+     reggae       0.47      0.35      0.40      2290
+       rock       0.55      0.60      0.57      4829
+
+avg / total       0.53      0.55      0.52     13826
+
+confusion matrix:
+[[3711   41   14  207  824]
+ [ 286  142   10  155  395]
+ [ 326   38   57  108  393]
+ [ 660   13   12  811  794]
+ [1342   97   45  454 2891]]
+
+================================================================================
+kNN\_100\_ball
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='ball\_tree', leaf\_size=30, metric='minkowski',
+           metric\_params=None, n\_jobs=1, n\_neighbors=100, p=2,
+           weights='uniform')
+train time: 0.042s
+test time:  0.272s
+accuracy:   0.485
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.50      0.70      0.58      4797
+    electro       0.22      0.02      0.04       988
+        rap       0.28      0.02      0.04       922
+     reggae       0.42      0.20      0.27      2290
+       rock       0.48      0.59      0.53      4829
+
+avg / total       0.45      0.48      0.44     13826
+
+confusion matrix:
+[[3337    9   20  196 1235]
+ [ 404   24    2  100  458]
+ [ 382   11   19   72  438]
+ [ 854   28   11  464  933]
+ [1645   36   15  275 2858]]
+
+================================================================================
+kNN\_50
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='brute', leaf\_size=30, metric='cosine',
+           metric\_params=None, n\_jobs=1, n\_neighbors=50, p=2,
+           weights='uniform')
+train time: 0.025s
+test time:  14.589s
+accuracy:   0.347
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.35      1.00      0.52      4797
+    electro       0.00      0.00      0.00       988
+        rap       0.00      0.00      0.00       922
+     reggae       0.60      0.00      0.00      2290
+       rock       0.39      0.00      0.00      4829
+
+avg / total       0.36      0.35      0.18     13826
+
+confusion matrix:
+[[4791    0    0    0    6]
+ [ 985    0    0    1    2]
+ [ 922    0    0    0    0]
+ [2281    0    0    3    6]
+ [4819    0    0    1    9]]
+
+================================================================================
+adaboost\_50
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+AdaBoostClassifier(algorithm='SAMME.R', base\_estimator=None,
+          learning\_rate=1.0, n\_estimators=50, random\_state=None)
+train time: 2.244s
+test time:  0.108s
+accuracy:   0.566
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.69      0.75      0.72      4797
+    electro       0.00      0.00      0.00       988
+        rap       0.20      0.01      0.02       922
+     reggae       0.29      0.02      0.04      2290
+       rock       0.50      0.86      0.63      4829
+
+avg / total       0.47      0.57      0.48     13826
+
+confusion matrix:
+[[3615    2    0   65 1115]
+ [ 229    0    0    7  752]
+ [  30    0   12    9  871]
+ [ 766    4    7   52 1461]
+ [ 598    0   40   46 4145]]
+
+================================================================================
+adaboost\_500
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+AdaBoostClassifier(algorithm='SAMME.R', base\_estimator=None,
+          learning\_rate=1.0, n\_estimators=500, random\_state=None)
+train time: 21.738s
+test time:  0.972s
+accuracy:   0.573
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.71      0.75      0.73      4797
+    electro       0.78      0.01      0.03       988
+        rap       0.20      0.03      0.06       922
+     reggae       0.42      0.07      0.12      2290
+       rock       0.50      0.86      0.63      4829
+
+avg / total       0.56      0.57      0.50     13826
+
+confusion matrix:
+[[3585    1    7  121 1083]
+ [ 211   14    8   27  728]
+ [  35    0   32   16  839]
+ [ 660    0   27  167 1436]
+ [ 538    3   86   71 4131]]
+
+================================================================================
+gradientboost\_2000
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+GradientBoostingClassifier(criterion='friedman\_mse', init=None,
+              learning\_rate=0.1, loss='deviance', max\_depth=3,
+              max\_features=None, max\_leaf\_nodes=None,
+              min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+              min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+              n\_estimators=2000, presort='auto', random\_state=None,
+              subsample=1.0, verbose=0, warm\_start=False)
+train time: 157.614s
+test time:  1.586s
+accuracy:   0.881
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.98      0.92      0.95      4797
+    electro       0.90      0.78      0.84       988
+        rap       0.79      0.65      0.71       922
+     reggae       0.90      0.79      0.84      2290
+       rock       0.81      0.94      0.87      4829
+
+avg / total       0.89      0.88      0.88     13826
+
+confusion matrix:
+[[4437   15   16   45  284]
+ [  13  775   17   24  159]
+ [  10    6  596   36  274]
+ [  27   35   28 1818  382]
+ [  49   26   98  105 4551]]
+
+================================================================================
+gradientboost\_3000
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+GradientBoostingClassifier(criterion='friedman\_mse', init=None,
+              learning\_rate=0.1, loss='deviance', max\_depth=3,
+              max\_features=None, max\_leaf\_nodes=None,
+              min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+              min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+              n\_estimators=3000, presort='auto', random\_state=None,
+              subsample=1.0, verbose=0, warm\_start=False)
+train time: 277.943s
+test time:  2.666s
+accuracy:   0.912
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.98      0.95      0.97      4797
+    electro       0.92      0.85      0.88       988
+        rap       0.83      0.74      0.78       922
+     reggae       0.92      0.86      0.89      2290
+       rock       0.86      0.95      0.90      4829
+
+avg / total       0.91      0.91      0.91     13826
+
+confusion matrix:
+[[4571   13   12   21  180]
+ [   5  838   13   19  113]
+ [   9    5  680   31  197]
+ [  20   18   20 1960  272]
+ [  43   32   91   99 4564]]
+
+================================================================================
+Random forest
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+            max\_depth=None, max\_features='auto', max\_leaf\_nodes=None,
+            min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+            min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+            n\_estimators=500, n\_jobs=1, oob\_score=False, random\_state=None,
+            verbose=0, warm\_start=False)
+train time: 23.317s
+test time:  2.690s
+accuracy:   0.612
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.76      0.78      0.77      4797
+    electro       0.44      0.29      0.35       988
+        rap       0.28      0.19      0.23       922
+     reggae       0.48      0.38      0.42      2290
+       rock       0.58      0.70      0.63      4829
+
+avg / total       0.60      0.61      0.60     13826
+
+confusion matrix:
+[[3762   68   72  233  662]
+ [ 146  284   44  113  401]
+ [ 100   32  179  101  510]
+ [ 377   99   84  863  867]
+ [ 534  162  264  498 3371]]
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k}{for} \PY{n}{penalty} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{l+m+mi}{80}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ penalty}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{penalty}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Train Liblinear model}
+             \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{n}{penalty}\PY{o}{=}\PY{n}{penalty}\PY{p}{,} \PY{n}{dual}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}
+                                                \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Train SGD model}
+             \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mo}{0001}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                                                    \PY{n}{penalty}\PY{o}{=}\PY{n}{penalty}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+================================================================================
+L2 penalty
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+LinearSVC(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+     intercept\_scaling=1, loss='squared\_hinge', max\_iter=1000,
+     multi\_class='ovr', penalty='l2', random\_state=None, tol=0.001,
+     verbose=0)
+train time: 0.128s
+test time:  0.002s
+accuracy:   0.349
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.00      0.00      0.00      4797
+    electro       0.00      0.00      0.00       988
+        rap       0.00      0.00      0.00       922
+     reggae       0.00      0.00      0.00      2290
+       rock       0.35      1.00      0.52      4829
+
+avg / total       0.12      0.35      0.18     13826
+
+confusion matrix:
+[[   0    0    0    0 4797]
+ [   0    0    0    0  988]
+ [   0    0    0    0  922]
+ [   0    0    0    0 2290]
+ [   0    0    0    0 4829]]
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+SGDClassifier(alpha=0.0001, average=False, class\_weight=None, epsilon=0.1,
+       eta0=0.0, fit\_intercept=True, l1\_ratio=0.15,
+       learning\_rate='optimal', loss='hinge', n\_iter=50, n\_jobs=1,
+       penalty='l2', power\_t=0.5, random\_state=None, shuffle=True,
+       verbose=0, warm\_start=False)
+train time: 0.647s
+test time:  0.002s
+accuracy:   0.350
+classification report:
+             precision    recall  f1-score   support
+
+      blues       1.00      0.00      0.00      4797
+    electro       0.00      0.00      0.00       988
+        rap       0.00      0.00      0.00       922
+     reggae       0.00      0.00      0.00      2290
+       rock       0.35      1.00      0.52      4829
+
+avg / total       0.47      0.35      0.18     13826
+
+confusion matrix:
+[[   7    0    0    0 4790]
+ [   0    0    0    0  988]
+ [   0    0    0    0  922]
+ [   0    0    0    0 2290]
+ [   0    0    0    0 4829]]
+
+================================================================================
+L1 penalty
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+LinearSVC(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+     intercept\_scaling=1, loss='squared\_hinge', max\_iter=1000,
+     multi\_class='ovr', penalty='l1', random\_state=None, tol=0.001,
+     verbose=0)
+train time: 5.969s
+test time:  0.004s
+accuracy:   0.570
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.68      0.77      0.72      4797
+    electro       0.00      0.00      0.00       988
+        rap       0.00      0.00      0.00       922
+     reggae       0.00      0.00      0.00      2290
+       rock       0.50      0.86      0.63      4829
+
+avg / total       0.41      0.57      0.47     13826
+
+confusion matrix:
+[[3711    0    0    0 1086]
+ [ 237    0    0    0  751]
+ [  45    0    0    0  877]
+ [ 811    0    0    0 1479]
+ [ 659    0    0    0 4170]]
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+SGDClassifier(alpha=0.0001, average=False, class\_weight=None, epsilon=0.1,
+       eta0=0.0, fit\_intercept=True, l1\_ratio=0.15,
+       learning\_rate='optimal', loss='hinge', n\_iter=50, n\_jobs=1,
+       penalty='l1', power\_t=0.5, random\_state=None, shuffle=True,
+       verbose=0, warm\_start=False)
+train time: 0.884s
+test time:  0.002s
+accuracy:   0.166
+classification report:
+             precision    recall  f1-score   support
+
+      blues       1.00      0.00      0.00      4797
+    electro       0.00      0.00      0.00       988
+        rap       0.00      0.00      0.00       922
+     reggae       0.17      1.00      0.28      2290
+       rock       0.00      0.00      0.00      4829
+
+avg / total       0.37      0.17      0.05     13826
+
+confusion matrix:
+[[   7    0    0 4790    0]
+ [   0    0    0  988    0]
+ [   0    0    0  922    0]
+ [   0    0    0 2290    0]
+ [   0    0    0 4829    0]]
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} Train sparse Naive Bayes classifiers}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{l+m+mi}{80}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Naive Bayes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{MultinomialNB}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mo}{01}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{BernoulliNB}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mo}{01}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+================================================================================
+Naive Bayes
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+MultinomialNB(alpha=0.01, class\_prior=None, fit\_prior=True)
+train time: 0.080s
+test time:  0.002s
+accuracy:   0.106
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.39      0.05      0.10      4797
+    electro       0.08      0.46      0.13       988
+        rap       0.07      0.48      0.12       922
+     reggae       0.13      0.00      0.01      2290
+       rock       0.36      0.06      0.11      4829
+
+avg / total       0.29      0.11      0.09     13826
+
+confusion matrix:
+[[ 263 2000 2230   25  279]
+ [  41  454  416    3   74]
+ [  54  365  440    2   61]
+ [  94 1059  985    7  145]
+ [ 225 2164 2117   15  308]]
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+BernoulliNB(alpha=0.01, binarize=0.0, class\_prior=None, fit\_prior=True)
+train time: 0.082s
+test time:  0.003s
+accuracy:   0.350
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.40      0.01      0.02      4797
+    electro       0.00      0.00      0.00       988
+        rap       0.00      0.00      0.00       922
+     reggae       0.00      0.00      0.00      2290
+       rock       0.35      0.99      0.52      4829
+
+avg / total       0.26      0.35      0.19     13826
+
+confusion matrix:
+[[  37    0    0    0 4760]
+ [   0    0    0    0  988]
+ [   8    0    0    0  914]
+ [  18    0    0    0 2272]
+ [  29    0    0    0 4800]]
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{results}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{results} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{results}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{clf\PYZus{}names}\PY{p}{,} \PY{n}{score}\PY{p}{,} \PY{n}{training\PYZus{}time}\PY{p}{,} \PY{n}{test\PYZus{}time} \PY{o}{=} \PY{n}{results}
+         \PY{n}{training\PYZus{}time} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}
+         \PY{n}{test\PYZus{}time} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test\PYZus{}time}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{test\PYZus{}time}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{indices}\PY{p}{,} \PY{n}{score}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{indices} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{training\PYZus{}time}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{indices} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{test\PYZus{}time}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkorange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{left}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{25}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{95}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{bottom}\PY{o}{=}\PY{o}{.}\PY{l+m+mo}{05}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{indices}\PY{p}{,} \PY{n}{clf\PYZus{}names}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{best-hyperparameters-grdid-search-with-cross-validation}{%
+\subsubsection{Best Hyperparameters Grdid Search with Cross
+Validation}\label{best-hyperparameters-grdid-search-with-cross-validation}}
+
+    To achieve better results with respect to those already obtained, a
+fine-tuning of the hyper-parameters by mean of a gridSearch cross
+validation shoudl be expected. It is highly computational requirinq,
+though.
+
+    \hypertarget{running-the-best-model-on-the-unobserved-dataset}{%
+\subsection{Running the best model on the unobserved
+dataset}\label{running-the-best-model-on-the-unobserved-dataset}}
+
+    The \textbf{best preformance} has been achieved by using a
+\textbf{GradientBoostingClassifier} with \textbf{3000 estimators}
+(decision trees). This model has performed with an \textbf{accuracy of
+91.2\%} and an average \textbf{f1\_score of 91\% } on the test set.
+
+    The structure of the training and test sets is recreated:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{df\PYZus{}preds} \PY{o}{=} \PY{n}{df\PYZus{}preds}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{bestModel} \PY{o}{=} \PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{3000}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{bestModel}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{dfWhole}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{dfWhole}\PY{o}{.}\PY{n}{genre}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} GradientBoostingClassifier(criterion='friedman\_mse', init=None,
+                       learning\_rate=0.1, loss='deviance', max\_depth=3,
+                       max\_features=None, max\_leaf\_nodes=None,
+                       min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+                       min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+                       n\_estimators=3000, presort='auto', random\_state=None,
+                       subsample=1.0, verbose=0, warm\_start=False)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k+kn}{import} \PY{n+nn}{pickle}
+         \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(} \PY{n}{bestModel}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BestModel.p}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wb}\PY{l+s+s2}{\PYZdq{}} \PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+    Finally, prediction of the music genre are generetaed and printed out on
+a csv file, after having filtered for uninformative tracks with any
+information in the session files.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{pred} \PY{o}{=} \PY{n}{bestModel}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{df\PYZus{}preds}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{df\PYZus{}preds}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predicted\PYZus{}genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pred}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{df\PYZus{}preds} \PY{o}{=} \PY{n}{df\PYZus{}preds}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}preds[[\PYZdq{}user\PYZus{}id\PYZdq{},\PYZdq{}song\PYZus{}id\PYZdq{},\PYZdq{}timestamp\PYZdq{}]].sort\PYZus{}values([\PYZdq{}user\PYZus{}id\PYZdq{},\PYZdq{}song\PYZus{}id\PYZdq{},\PYZdq{}timestamp\PYZdq{}])}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{df\PYZus{}preds}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predicted\PYZus{}genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmp\PYZus{}overall\PYZus{}predictions.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{index} \PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{filteredLis} \PY{o}{=} \PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}preds}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}tracks\PYZus{}to\PYZus{}complete}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    For a given song\_id there might be multiple answers due to:
+
+\begin{itemize}
+\tightlist
+\item
+  same genre predictions from different user\_id
+\item
+  different genre predictions from different user\_id
+\end{itemize}
+
+In the first case, a filtering across replicates will be usesd, whereas
+for the second case for simplicity the first answer among the possible
+outcomes will be picked up.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{df\PYZus{}predsFiltered} \PY{o}{=} \PY{n}{df\PYZus{}preds}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predicted\PYZus{}genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predicted\PYZus{}genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{keep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{n}{df\PYZus{}Final} \PY{o}{=} \PY{n}{df\PYZus{}predsFiltered}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{keep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{print}\PY{p}{(}\PY{n}{df\PYZus{}Final}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1209, 2)
+
+    \end{Verbatim}
+
+    This was a quick and dirty work-around. In order to map the outcome best
+estimation with the genre measured distribution, the best choice would
+be done by extracting a random number \(f_r\) from a uniform
+distribution in {[}0,1{]} and comparing its value with the per class
+frequecnies, given by:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{n}{df\PYZus{}predsFiltered}\PY{p}{[}\PY{n}{df\PYZus{}predsFiltered}\PY{o}{.}\PY{n}{song\PYZus{}id}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{filteredLis}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}136}]:} (1451, 2)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}142}]:} genre
+          blues      0.346932
+          electro    0.071500
+          rap        0.066661
+          reggae     0.165611
+          rock       0.349297
+          Name: song\_id, dtype: float64
+\end{Verbatim}
+        
+    So that: - if \(fgenre_j < fr < fgenre_i\) --\textgreater{} Genre ``i''
+is chosen - if \(f_r < fgenre_k< fgenre_i < fgenre_j\) --\textgreater{}
+Genre ``k'' is chosen - ad so on ..
+
+    We can finally save the list of predictions in the format requested by
+the test
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{df\PYZus{}predsFiltered}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{solutions.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{index} \PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{appendix}{%
+\section{Appendix}\label{appendix}}
+
+    By using only the information given by song\_id, user\_id and the number
+of times a lyrics was played (proxy of the rating), it is possible to
+perform a pivot of the previous dataframes in order to create a Df with
+lyrics labels associated to a given combination of user. This
+methodology is closer to what is usually done in collaborative filtering
+but it is not as performing as the previous approach
+
+    \#\#\#\#~Data pre-processing 2
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{df\PYZus{}filtered} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{timestamp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{keep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Pivoting
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{df\PYZus{}pivot} \PY{o}{=} \PY{n}{df\PYZus{}filtered}\PY{o}{.}\PY{n}{pivot}\PY{p}{(}\PY{n}{index} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{song\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usr\PYZus{}rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{reshaped\PYZus{}df} \PY{o}{=} \PY{p}{(}\PY{n}{df\PYZus{}pivot}
+                        \PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}filtered}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{usr\PYZus{}rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{usr\PYZus{}avgSession}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{duration}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{usr\PYZus{}totTrack}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{popolarity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{inner}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{keep} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    It is possible now to create a train and test dataset by using
+stratified sampling, to respect the relative proportions of music genres
+in the session datasets. Indees, some genre frequencies were unbalance
+already at the level of the track dataset
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{df\PYZus{}tracks}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{song\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} genre
+         blues       807
+         electro     394
+         rap         593
+         reggae      785
+         rock       2406
+         Name: song\_id, dtype: int64
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{reshaped\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{reshaped\PYZus{}df}\PY{o}{.}\PY{n}{genre}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{reshaped\PYZus{}df}\PY{o}{.}\PY{n}{genre}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:}               song\_id  0.0  1.0  2.0  3.0  4.0  5.0  6.0  7.0  8.0  {\ldots}    \textbackslash{}
+         6858    2869038153730  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  {\ldots}     
+         33258  13589276524546  0.0  0.0  0.0  0.0  0.0  0.0  1.0  0.0  1.0  {\ldots}     
+         33158  13554916786176  0.0  1.0  0.0  0.0  1.0  0.0  0.0  0.0  0.0  {\ldots}     
+         34350  14035953123330  0.0  1.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  {\ldots}     
+         26180  10642928959488  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  {\ldots}     
+         
+                91.0  92.0  93.0  94.0  95.0  96.0  97.0  98.0  99.0  100.0  
+         6858    0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0    0.0  
+         33258   0.0   1.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0    0.0  
+         33158   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0    0.0  
+         34350   0.0   2.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0    0.0  
+         26180   1.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0    1.0  
+         
+         [5 rows x 102 columns]
+\end{Verbatim}
+        
+    kf = KFold(n\_splits=5) for train, test in kf.split(X): print(``\%s
+\%s'' \% (train, test))
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{results} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{clf}\PY{p}{,} \PY{n}{name} \PY{o+ow}{in} \PY{p}{(}
+                 \PY{p}{(}\PY{n}{RidgeClassifier}\PY{p}{(}\PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lsqr}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ridge Classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{Perceptron}\PY{p}{(}\PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Perceptron}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ball\PYZus{}tree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}20\PYZus{}ball}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cosine}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brute}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cosine}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brute}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cosine}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brute}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cosine}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brute}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}50}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cosine}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{algorithm} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{brute}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kNN\PYZus{}200}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{AdaBoostClassifier}\PY{p}{(} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{adaboost\PYZus{}50}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{AdaBoostClassifier}\PY{p}{(} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{adaboost\PYZus{}500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gradientboost\PYZus{}50}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gradientboost\PYZus{}500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random forest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{l+m+mi}{80}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+             \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{clf}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+================================================================================
+Ridge Classifier
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+RidgeClassifier(alpha=1.0, class\_weight=None, copy\_X=True, fit\_intercept=True,
+        max\_iter=None, normalize=False, random\_state=None, solver='lsqr',
+        tol=0.01)
+train time: 0.025s
+test time:  0.003s
+accuracy:   0.480
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.00      0.00      0.00       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.00      0.00      0.00       228
+       rock       0.48      1.00      0.65       686
+
+avg / total       0.23      0.48      0.31      1428
+
+confusion matrix:
+[[  0   0   0   0 239]
+ [  0   0   0   0 113]
+ [  0   0   0   0 162]
+ [  0   0   0   0 228]
+ [  0   0   0   0 686]]
+
+================================================================================
+Perceptron
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+Perceptron(alpha=0.0001, class\_weight=None, eta0=1.0, fit\_intercept=True,
+      n\_iter=50, n\_jobs=1, penalty=None, random\_state=0, shuffle=True,
+      verbose=0, warm\_start=False)
+train time: 0.304s
+test time:  0.001s
+accuracy:   0.480
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.00      0.00      0.00       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.00      0.00      0.00       228
+       rock       0.48      1.00      0.65       686
+
+avg / total       0.23      0.48      0.31      1428
+
+confusion matrix:
+[[  0   0   0   0 239]
+ [  0   0   0   0 113]
+ [  0   0   0   0 162]
+ [  0   0   0   0 228]
+ [  0   0   0   0 686]]
+
+================================================================================
+kNN\_20\_ball
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='ball\_tree', leaf\_size=30, metric='minkowski',
+           metric\_params=None, n\_jobs=1, n\_neighbors=20, p=2,
+           weights='uniform')
+train time: 0.019s
+test time:  0.032s
+accuracy:   0.457
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.24      0.09      0.13       239
+    electro       0.00      0.00      0.00       113
+        rap       0.09      0.01      0.01       162
+     reggae       0.15      0.02      0.04       228
+       rock       0.48      0.91      0.63       686
+
+avg / total       0.31      0.46      0.33      1428
+
+confusion matrix:
+[[ 22   0   0   4 213]
+ [  8   0   1   1 103]
+ [ 10   0   1   8 143]
+ [ 12   0   0   5 211]
+ [ 38   0   9  15 624]]
+
+================================================================================
+kNN\_1
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='brute', leaf\_size=30, metric='cosine',
+           metric\_params=None, n\_jobs=1, n\_neighbors=1, p=2,
+           weights='uniform')
+train time: 0.004s
+test time:  0.115s
+accuracy:   0.480
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.00      0.00      0.00       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.00      0.00      0.00       228
+       rock       0.48      1.00      0.65       686
+
+avg / total       0.23      0.48      0.31      1428
+
+confusion matrix:
+[[  0   0   0   0 239]
+ [  0   0   0   0 113]
+ [  0   0   0   0 162]
+ [  0   0   0   0 228]
+ [  1   0   0   0 685]]
+
+================================================================================
+kNN\_4
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='brute', leaf\_size=30, metric='cosine',
+           metric\_params=None, n\_jobs=1, n\_neighbors=4, p=2,
+           weights='uniform')
+train time: 0.005s
+test time:  0.100s
+accuracy:   0.480
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.00      0.00      0.00       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.00      0.00      0.00       228
+       rock       0.48      1.00      0.65       686
+
+avg / total       0.23      0.48      0.31      1428
+
+confusion matrix:
+[[  0   0   0   0 239]
+ [  0   0   0   0 113]
+ [  0   0   0   0 162]
+ [  0   0   0   0 228]
+ [  1   0   0   0 685]]
+
+================================================================================
+kNN\_10
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='brute', leaf\_size=30, metric='cosine',
+           metric\_params=None, n\_jobs=1, n\_neighbors=10, p=2,
+           weights='uniform')
+train time: 0.006s
+test time:  0.100s
+accuracy:   0.168
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.17      1.00      0.29       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.00      0.00      0.00       228
+       rock       1.00      0.00      0.00       686
+
+avg / total       0.51      0.17      0.05      1428
+
+confusion matrix:
+[[239   0   0   0   0]
+ [113   0   0   0   0]
+ [162   0   0   0   0]
+ [228   0   0   0   0]
+ [685   0   0   0   1]]
+
+================================================================================
+kNN\_50
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='brute', leaf\_size=30, metric='cosine',
+           metric\_params=None, n\_jobs=1, n\_neighbors=50, p=2,
+           weights='uniform')
+train time: 0.004s
+test time:  0.104s
+accuracy:   0.481
+classification report:
+             precision    recall  f1-score   support
+
+      blues       1.00      0.00      0.01       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.00      0.00      0.00       228
+       rock       0.48      1.00      0.65       686
+
+avg / total       0.40      0.48      0.31      1428
+
+confusion matrix:
+[[  1   0   0   0 238]
+ [  0   0   0   0 113]
+ [  0   0   0   0 162]
+ [  0   0   0   0 228]
+ [  0   0   0   0 686]]
+
+================================================================================
+kNN\_200
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+KNeighborsClassifier(algorithm='brute', leaf\_size=30, metric='cosine',
+           metric\_params=None, n\_jobs=1, n\_neighbors=200, p=2,
+           weights='uniform')
+train time: 0.004s
+test time:  0.146s
+accuracy:   0.480
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.50      0.00      0.01       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.00      0.00      0.00       228
+       rock       0.48      1.00      0.65       686
+
+avg / total       0.31      0.48      0.31      1428
+
+confusion matrix:
+[[  1   0   0   0 238]
+ [  0   0   0   0 113]
+ [  0   0   0   0 162]
+ [  0   0   0   0 228]
+ [  1   0   0   0 685]]
+
+================================================================================
+adaboost\_50
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+AdaBoostClassifier(algorithm='SAMME.R', base\_estimator=None,
+          learning\_rate=1.0, n\_estimators=50, random\_state=None)
+train time: 0.511s
+test time:  0.024s
+accuracy:   0.570
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.62      0.54      0.58       239
+    electro       0.43      0.21      0.28       113
+        rap       0.36      0.14      0.20       162
+     reggae       0.45      0.20      0.28       228
+       rock       0.59      0.86      0.70       686
+
+avg / total       0.53      0.57      0.52      1428
+
+confusion matrix:
+[[129   4   8  16  82]
+ [  5  24   3   6  75]
+ [  8   5  22  11 116]
+ [ 32   5  12  46 133]
+ [ 35  18  16  24 593]]
+
+================================================================================
+adaboost\_500
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+AdaBoostClassifier(algorithm='SAMME.R', base\_estimator=None,
+          learning\_rate=1.0, n\_estimators=500, random\_state=None)
+train time: 4.580s
+test time:  0.203s
+accuracy:   0.444
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.41      0.52      0.46       239
+    electro       0.26      0.33      0.29       113
+        rap       0.26      0.36      0.30       162
+     reggae       0.39      0.23      0.29       228
+       rock       0.59      0.53      0.56       686
+
+avg / total       0.46      0.44      0.45      1428
+
+confusion matrix:
+[[125  12  16  17  69]
+ [  9  37  10   8  49]
+ [ 17  14  58   9  64]
+ [ 52  12  40  53  71]
+ [105  69 101  50 361]]
+
+================================================================================
+gradientboost\_50
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+GradientBoostingClassifier(criterion='friedman\_mse', init=None,
+              learning\_rate=0.1, loss='deviance', max\_depth=3,
+              max\_features=None, max\_leaf\_nodes=None,
+              min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+              min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+              n\_estimators=50, presort='auto', random\_state=None,
+              subsample=1.0, verbose=0, warm\_start=False)
+train time: 2.374s
+test time:  0.010s
+accuracy:   0.567
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.69      0.46      0.55       239
+    electro       0.57      0.07      0.13       113
+        rap       0.70      0.04      0.08       162
+     reggae       0.55      0.14      0.22       228
+       rock       0.55      0.95      0.70       686
+
+avg / total       0.59      0.57      0.48      1428
+
+confusion matrix:
+[[109   0   0  10 120]
+ [ 10   8   0   2  93]
+ [  6   1   7   2 146]
+ [ 18   2   2  32 174]
+ [ 16   3   1  12 654]]
+
+================================================================================
+gradientboost\_500
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+GradientBoostingClassifier(criterion='friedman\_mse', init=None,
+              learning\_rate=0.1, loss='deviance', max\_depth=3,
+              max\_features=None, max\_leaf\_nodes=None,
+              min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+              min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+              n\_estimators=500, presort='auto', random\_state=None,
+              subsample=1.0, verbose=0, warm\_start=False)
+train time: 21.963s
+test time:  0.054s
+accuracy:   0.566
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.63      0.44      0.52       239
+    electro       0.51      0.25      0.33       113
+        rap       0.40      0.15      0.22       162
+     reggae       0.45      0.31      0.37       228
+       rock       0.59      0.85      0.69       686
+
+avg / total       0.55      0.57      0.53      1428
+
+confusion matrix:
+[[105   5   5  22 102]
+ [  2  28   3   6  74]
+ [  8   2  25  11 116]
+ [ 23   7  10  70 118]
+ [ 28  13  20  45 580]]
+
+================================================================================
+Random forest
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+            max\_depth=None, max\_features='auto', max\_leaf\_nodes=None,
+            min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+            min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+            n\_estimators=500, n\_jobs=1, oob\_score=False, random\_state=None,
+            verbose=0, warm\_start=False)
+train time: 4.699s
+test time:  0.539s
+accuracy:   0.554
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.66      0.50      0.57       239
+    electro       0.38      0.07      0.12       113
+        rap       0.36      0.09      0.14       162
+     reggae       0.39      0.17      0.23       228
+       rock       0.56      0.89      0.69       686
+
+avg / total       0.51      0.55      0.49      1428
+
+confusion matrix:
+[[119   2   2   9 107]
+ [ 10   8   1   3  91]
+ [  5   3  14  18 122]
+ [ 23   2   6  38 159]
+ [ 22   6  16  30 612]]
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k}{for} \PY{n}{penalty} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{l+m+mi}{80}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ penalty}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{penalty}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Train Liblinear model}
+             \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{n}{penalty}\PY{o}{=}\PY{n}{penalty}\PY{p}{,} \PY{n}{dual}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}
+                                                \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Train SGD model}
+             \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mo}{0001}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                                                    \PY{n}{penalty}\PY{o}{=}\PY{n}{penalty}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+================================================================================
+L2 penalty
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+LinearSVC(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+     intercept\_scaling=1, loss='squared\_hinge', max\_iter=1000,
+     multi\_class='ovr', penalty='l2', random\_state=None, tol=0.001,
+     verbose=0)
+train time: 0.022s
+test time:  0.002s
+accuracy:   0.480
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.00      0.00      0.00       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.00      0.00      0.00       228
+       rock       0.48      1.00      0.65       686
+
+avg / total       0.23      0.48      0.31      1428
+
+confusion matrix:
+[[  0   0   0   0 239]
+ [  0   0   0   0 113]
+ [  0   0   0   0 162]
+ [  0   0   0   0 228]
+ [  0   0   0   0 686]]
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+SGDClassifier(alpha=0.0001, average=False, class\_weight=None, epsilon=0.1,
+       eta0=0.0, fit\_intercept=True, l1\_ratio=0.15,
+       learning\_rate='optimal', loss='hinge', n\_iter=50, n\_jobs=1,
+       penalty='l2', power\_t=0.5, random\_state=None, shuffle=True,
+       verbose=0, warm\_start=False)
+train time: 0.218s
+test time:  0.002s
+accuracy:   0.480
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.00      0.00      0.00       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.00      0.00      0.00       228
+       rock       0.48      1.00      0.65       686
+
+avg / total       0.23      0.48      0.31      1428
+
+confusion matrix:
+[[  0   0   0   0 239]
+ [  0   0   0   0 113]
+ [  0   0   0   0 162]
+ [  0   0   0   0 228]
+ [  0   0   0   0 686]]
+
+================================================================================
+L1 penalty
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+LinearSVC(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+     intercept\_scaling=1, loss='squared\_hinge', max\_iter=1000,
+     multi\_class='ovr', penalty='l1', random\_state=None, tol=0.001,
+     verbose=0)
+train time: 0.873s
+test time:  0.001s
+accuracy:   0.595
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.70      0.52      0.60       239
+    electro       0.48      0.27      0.34       113
+        rap       0.40      0.12      0.19       162
+     reggae       0.62      0.25      0.36       228
+       rock       0.59      0.90      0.71       686
+
+avg / total       0.58      0.60      0.55      1428
+
+confusion matrix:
+[[125   7   3  12  92]
+ [  3  30   3   2  75]
+ [  8   4  20   4 126]
+ [ 22   8   8  57 133]
+ [ 21  14  16  17 618]]
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+SGDClassifier(alpha=0.0001, average=False, class\_weight=None, epsilon=0.1,
+       eta0=0.0, fit\_intercept=True, l1\_ratio=0.15,
+       learning\_rate='optimal', loss='hinge', n\_iter=50, n\_jobs=1,
+       penalty='l1', power\_t=0.5, random\_state=None, shuffle=True,
+       verbose=0, warm\_start=False)
+train time: 0.511s
+test time:  0.001s
+accuracy:   0.160
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.00      0.00      0.00       239
+    electro       0.00      0.00      0.00       113
+        rap       0.00      0.00      0.00       162
+     reggae       0.16      1.00      0.28       228
+       rock       0.00      0.00      0.00       686
+
+avg / total       0.03      0.16      0.04      1428
+
+confusion matrix:
+[[  0   0   0 239   0]
+ [  0   0   0 113   0]
+ [  0   0   0 162   0]
+ [  0   0   0 228   0]
+ [  0   0   0 686   0]]
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{} Train sparse Naive Bayes classifiers}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{*} \PY{l+m+mi}{80}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Naive Bayes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{MultinomialNB}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mo}{01}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benchmark}\PY{p}{(}\PY{n}{BernoulliNB}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mo}{01}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+================================================================================
+Naive Bayes
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+MultinomialNB(alpha=0.01, class\_prior=None, fit\_prior=True)
+train time: 0.013s
+test time:  0.001s
+accuracy:   0.480
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.35      0.60      0.44       239
+    electro       0.51      0.18      0.26       113
+        rap       0.24      0.20      0.22       162
+     reggae       0.42      0.19      0.26       228
+       rock       0.61      0.65      0.63       686
+
+avg / total       0.48      0.48      0.46      1428
+
+confusion matrix:
+[[143   2  12  18  64]
+ [ 35  20   7   2  49]
+ [ 31   3  33   7  88]
+ [ 69   2  27  43  87]
+ [136  12  59  33 446]]
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Training: 
+BernoulliNB(alpha=0.01, binarize=0.0, class\_prior=None, fit\_prior=True)
+train time: 0.014s
+test time:  0.004s
+accuracy:   0.548
+classification report:
+             precision    recall  f1-score   support
+
+      blues       0.51      0.59      0.55       239
+    electro       0.39      0.19      0.26       113
+        rap       0.33      0.25      0.28       162
+     reggae       0.44      0.22      0.30       228
+       rock       0.61      0.77      0.68       686
+
+avg / total       0.52      0.55      0.52      1428
+
+confusion matrix:
+[[142   5   5  14  73]
+ [ 21  22   7   7  56]
+ [  9   3  40   9 101]
+ [ 47   5  22  51 103]
+ [ 57  21  46  35 527]]
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{results}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{results} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{results}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{clf\PYZus{}names}\PY{p}{,} \PY{n}{score}\PY{p}{,} \PY{n}{training\PYZus{}time}\PY{p}{,} \PY{n}{test\PYZus{}time} \PY{o}{=} \PY{n}{results}
+         \PY{n}{training\PYZus{}time} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{training\PYZus{}time}\PY{p}{)}
+         \PY{n}{test\PYZus{}time} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test\PYZus{}time}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{test\PYZus{}time}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{indices}\PY{p}{,} \PY{n}{score}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{indices} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{training\PYZus{}time}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{indices} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{test\PYZus{}time}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkorange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{left}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{25}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{95}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{bottom}\PY{o}{=}\PY{o}{.}\PY{l+m+mo}{05}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{indices}\PY{p}{,} \PY{n}{clf\PYZus{}names}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_113_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

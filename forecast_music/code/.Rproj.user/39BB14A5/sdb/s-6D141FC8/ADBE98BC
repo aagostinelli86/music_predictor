@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(dplyr)\ntracks$song_id <- as.factor(tracks$song_id)\ntracks$genre <- as.factor(tracks$genre)\n\nsessions$user_id <- as.factor(sessions$user_id)\nsessions$song_id <- as.factor(sessions$song_id)\nclass(sessions$timestamp)\ntracks_to_complete\n\n\nsessions <- sessions[!is.na(sessions$user_id),]\n\nsessions <- sessions[!is.na(sessions$timestamp),]\n\nprova <- sessions %>% dplyr::arrange(\"user_id\",\"song_id\")\n\nsessions %>% dplyr::group_by(\"user_id\",\"song_id\") %>%\n\ntable(tracks[,2:3])\n\n",
+    "created" : 1513423548515.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1296678101",
+    "id" : "ADBE98BC",
+    "lastKnownWriteTime" : 1513440440,
+    "last_content_update" : 1513440440958,
+    "path" : "~/Desktop/deezer/techtest/data/exploration.R",
+    "project_path" : "exploration.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

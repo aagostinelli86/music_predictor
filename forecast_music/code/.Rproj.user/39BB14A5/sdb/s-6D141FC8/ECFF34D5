@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1513444362619.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "ECFF34D5",
+    "lastKnownWriteTime" : 6917529027911680000,
+    "last_content_update" : 1513444362619,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "AB960E68",
+        "caption" : "tracks",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=tracks&cache_key=AB960E68",
+        "displayedObservations" : "4985",
+        "environment" : "",
+        "object" : "tracks",
+        "preview" : "0",
+        "totalObservations" : "4985",
+        "variables" : "3"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
